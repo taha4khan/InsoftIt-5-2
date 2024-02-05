@@ -1,0 +1,48 @@
+import React, { useState, useEffect } from 'react';
+
+const companyLogos = [
+  '/images/logos/uic-pakistan.png', // Replace with the actual path to your logos
+  '/images/logos/jubilee-insurance.png',
+  '/images/logos/takaful.png',
+  '/images/logos/tpl-insurance.png',
+  // Add the paths for the remaining 4 company logos here
+];
+
+const Home = () => {
+  const [currentLogo, setCurrentLogo] = useState(0);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCurrentLogo((currentLogo + 1) % companyLogos.length);
+    }, 3000); // Slide every 3 seconds
+    return () => clearTimeout(timer);
+  }, [currentLogo]);
+
+  return (
+    <div>
+      <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+        <h1>OUR PROUD PARTNERS</h1>
+        <p>To Develop a digital marketplace that provides a wide range of takaful products to as many people in Pakistan as possible</p>
+      </div>
+      <div style={{ overflow: 'hidden', whiteSpace: 'nowrap' }}>
+        {companyLogos.map((logo, index) => (
+          <img
+            key={logo}
+            src={logo}
+            alt={`Company Logo ${index + 1}`}
+            style={{
+              width: '150px', // Set appropriate width
+              height: 'auto', // Keep aspect ratio
+              marginRight: '20px', // Space between logos
+              display: 'inline-block',
+              opacity: currentLogo === index ? 1 : 0.5,
+              transition: 'opacity 1s ease-in-out',
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Home;
